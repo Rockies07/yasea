@@ -250,7 +250,9 @@ public class SrsCameraView extends GLSurfaceView implements GLSurfaceView.Render
 
         List<String> supportedFocusModes = params.getSupportedFocusModes();
         if (!supportedFocusModes.isEmpty()) {
-            if (supportedFocusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+            if (supportedFocusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+                params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            } else if (supportedFocusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
                 params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             } else {
                 params.setFocusMode(supportedFocusModes.get(0));
@@ -265,9 +267,6 @@ public class SrsCameraView extends GLSurfaceView implements GLSurfaceView.Render
         params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         params.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
         params.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
-        if (!params.getSupportedFocusModes().isEmpty()) {
-            params.setFocusMode(params.getSupportedFocusModes().get(0));
-        }
         mCamera.setParameters(params);
 
         mCamera.setDisplayOrientation(mPreviewRotation);
